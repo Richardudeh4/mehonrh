@@ -130,10 +130,6 @@ export default function App() {
           <img src={robinhoodLogo} alt="" className="dock-logo" />
         </a>
       </nav>
-      <p className="line line-lead">
-            $MEH is a meme. Nothing more. Nothing less.
-          </p>
-
       <p className="tagline">A meme. Nothing more. Nothing less.</p>
 
       {copied ? (
