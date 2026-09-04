@@ -39,8 +39,10 @@ function shortAddress(address: string) {
 
 export default function App() {
   const [copied, setCopied] = useState(false)
+  const [disclaimerOpen, setDisclaimerOpen] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
   const liveId = useId()
+  const disclaimerId = useId()
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -49,6 +51,20 @@ export default function App() {
     media.addEventListener('change', sync)
     return () => media.removeEventListener('change', sync)
   }, [])
+
+  useEffect(() => {
+    if (!disclaimerOpen) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setDisclaimerOpen(false)
+    }
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.body.style.overflow = prevOverflow
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [disclaimerOpen])
 
   async function handleCopy() {
     const ok = await copyText(CONTRACT_ADDRESS)
@@ -98,41 +114,83 @@ export default function App() {
           </a>
         </nav>
 
-        <section className="manifesto" aria-label="Agreement">
-          <p className="agree">by buying $MEH, you agree that:</p>
-          <p className="line line-lead">
-            $MEH is a meme. nothing more. nothing less.
-          </p>
-          <p className="line">
-            no utility. no guaranteed value. no financial advice.
-          </p>
-          <p className="line">
-            buy it because you get the joke. not because you expect anything from
-            it.
-          </p>
-          <p className="line line-split">
-            you might win. you might lose.
-            <br />
-            we honestly don’t care.
-          </p>
-          <p className="line line-end">this is $MEH.</p>
-          <button
-            className="ca"
-            type="button"
-            onClick={handleCopy}
-            aria-describedby={liveId}
-          >
-            <span className="ca-full">{CONTRACT_ADDRESS}</span>
-            <span className="ca-short">{shortAddress(CONTRACT_ADDRESS)}</span>
-            <span className="ca-hint">{copied ? 'copied' : 'copy'}</span>
-          </button>
-          <span className="sr-only" id={liveId} aria-live="polite">
-            {copied ? 'Contract address copied' : ''}
-          </span>
-        </section>
+        <button
+          className="disclaimer-toggle"
+          type="button"
+          aria-expanded={disclaimerOpen}
+          aria-haspopup="dialog"
+          aria-controls={disclaimerId}
+          onClick={() => setDisclaimerOpen(true)}
+        >
+          Disclaimer
+        </button>
+
+        <button
+          className="ca"
+          type="button"
+          onClick={handleCopy}
+          aria-describedby={liveId}
+        >
+          <span className="ca-full">{CONTRACT_ADDRESS}</span>
+          <span className="ca-short">{shortAddress(CONTRACT_ADDRESS)}</span>
+          <span className="ca-hint">{copied ? 'copied' : 'copy'}</span>
+        </button>
+        <span className="sr-only" id={liveId} aria-live="polite">
+          {copied ? 'Contract address copied' : ''}
+        </span>
 
         <p className="tagline">a meme. nothing more. nothing less.</p>
       </div>
+
+      {disclaimerOpen ? (
+        <div
+          className="disclaimer-modal"
+          role="presentation"
+          onClick={() => setDisclaimerOpen(false)}
+        >
+          <div
+            className="disclaimer-dialog"
+            id={disclaimerId}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`${disclaimerId}-title`}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="disclaimer-dialog-head">
+              <h2 className="disclaimer-dialog-title" id={`${disclaimerId}-title`}>
+                Disclaimer
+              </h2>
+              <button
+                className="disclaimer-close"
+                type="button"
+                aria-label="Close disclaimer"
+                onClick={() => setDisclaimerOpen(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="disclaimer-dialog-body">
+              <p className="agree">by buying $MEH, you agree that:</p>
+              <p className="line line-lead">
+                $MEH is a meme. nothing more. nothing less.
+              </p>
+              <p className="line">
+                no utility. no guaranteed value. no financial advice.
+              </p>
+              <p className="line">
+                buy it because you get the joke. not because you expect anything
+                from it.
+              </p>
+              <p className="line line-split">
+                you might win. you might lose.
+                <br />
+                we honestly don’t care.
+              </p>
+              <p className="line line-end">this is $MEH.</p>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {copied ? (
         <div className="toast" role="status">
