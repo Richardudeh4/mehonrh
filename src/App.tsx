@@ -9,14 +9,14 @@ import './App.css'
 const LINKS = {
   buy: '#',
   x: 'https://x.com/Mehonrh',
-  dexscreener: '#',
+  dexscreener: 'https://dexscreener.com/robinhood/0x36b6711be94aa5dcd7ddd528d14dbe33043659b0',
   robinhood: '#',
 } as const
 
 const MEH_TWEET_URL =
   'https://x.com/elonmusk/status/2034947266822471988?s=20'
 
-const CONTRACT_ADDRESS = '0x00000000000000'
+const CONTRACT_ADDRESS = '0x36b6711be94aa5dcd7ddd528d14dbe33043659b0'
 const EGG_SIZE = 48
 const HASH_MS = 700
 const HASH_MS_REDUCED = 80
