@@ -7,7 +7,7 @@ import './App.css'
 /* Swap these when the real links land. */
 const LINKS = {
   buy: '#',
-  x: '#',
+  x: 'https://x.com/Mehonrh',
   dexscreener: '#',
   robinhood: '#',
 } as const
@@ -89,7 +89,7 @@ export default function App() {
 
       <main className="stage">
         <header className="stage-top">
-          <h1 className="brand">$MEH</h1>
+          {/* <h1 className="brand">$MEH</h1> */}
           <div className="cta-row">
             <a className="btn btn-buy" href={LINKS.buy}>
               Buy $MEH
@@ -103,13 +103,13 @@ export default function App() {
 
       <div className="bottom-stack">
         <nav className="dock" aria-label="Social and charts">
-          <a href={LINKS.x} aria-label="X">
+          <a href={LINKS.x} aria-label="X" target="_blank" rel="noopener noreferrer">
             <IconX />
           </a>
-          <a href={LINKS.dexscreener} aria-label="Dexscreener">
+          <a href={LINKS.dexscreener} aria-label="Dexscreener" target="_blank" rel="noopener noreferrer">
             <img src={dexscreenerLogo} alt="" className="dock-logo" />
           </a>
-          <a href={LINKS.robinhood} aria-label="Robinhood">
+          <a href={LINKS.robinhood} aria-label="Robinhood" target="_blank" rel="noopener noreferrer">
             <img src={robinhoodLogo} alt="" className="dock-logo" />
           </a>
         </nav>
