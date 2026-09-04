@@ -99,23 +99,23 @@ export default function App() {
         </nav>
 
         <section className="manifesto" aria-label="Agreement">
-          <p className="agree">By buying $MEH, you agree that:</p>
+          <p className="agree">by buying $MEH, you agree that:</p>
           <p className="line line-lead">
-            $MEH is a meme. Nothing more. Nothing less.
+            $MEH is a meme. nothing more. nothing less.
           </p>
           <p className="line">
-            No utility. No guaranteed value. No financial advice.
+            no utility. no guaranteed value. no financial advice.
           </p>
           <p className="line">
-            Buy it because you get the joke. Not because you expect anything from
+            buy it because you get the joke. not because you expect anything from
             it.
           </p>
           <p className="line line-split">
-            You might win. You might lose.
+            you might win. you might lose.
             <br />
-            We honestly don’t care.
+            we honestly don’t care.
           </p>
-          <p className="line line-end">This is $MEH.</p>
+          <p className="line line-end">this is $MEH.</p>
           <button
             className="ca"
             type="button"
@@ -131,7 +131,7 @@ export default function App() {
           </span>
         </section>
 
-        <p className="tagline">A meme. Nothing more. Nothing less.</p>
+        <p className="tagline">a meme. nothing more. nothing less.</p>
       </div>
 
       {copied ? (
