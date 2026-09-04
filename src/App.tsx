@@ -90,14 +90,14 @@ export default function App() {
       <main className="stage">
         <header className="stage-top">
           {/* <h1 className="brand">$MEH</h1> */}
-          <div className="cta-row">
+          {/* <div className="cta-row">
             <a className="btn btn-buy" href={LINKS.buy}>
               Buy $MEH
             </a>
             <button className="btn btn-ghost" type="button" onClick={handleCopy}>
               {copied ? 'Copied' : 'Copy CA'}
             </button>
-          </div>
+          </div> */}
         </header>
       </main>
 
