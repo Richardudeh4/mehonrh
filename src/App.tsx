@@ -130,9 +130,7 @@ export default function App() {
         <a href={LINKS.robinhood} aria-label="Robinhood">
           <img src={robinhoodLogo} alt="" className="dock-logo" />
         </a>
-        <a className="dock-meh" href={LINKS.buy} aria-label="Buy $MEH">
-          <IconFlame />
-        </a>
+       
       </nav>
 
       {copied ? (
@@ -157,13 +155,4 @@ function IconX() {
   )
 }
 
-function IconFlame() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M12 2s3 3.2 3 6.2c0 1.4-.6 2.6-1.5 3.5.2-.8.3-1.6.2-2.4-.8 1.4-2.2 2.4-2.7 3.9C9.5 10.6 7 9.4 7 6.8 7 4.6 9.1 2.8 12 2Zm0 10c3.2 0 6 2.2 6 5.4C18 20.4 15.3 22 12 22s-6-1.6-6-4.6c0-2.1 1.4-3.8 3.4-4.7.4 1.6 1.5 2.8 2.6 3.5-.4-1.5-.4-3.2 0-4.2Z"
-      />
-    </svg>
-  )
-}
+
