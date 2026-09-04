@@ -130,7 +130,7 @@ export default function App() {
           <img src={robinhoodLogo} alt="" className="dock-logo" />
         </a>
       </nav>
-      <p className="tagline">A meme. Nothing more. Nothing less.</p>
+      <p className="tagline">a meme. nothing more. nothing less.</p>
 
       {copied ? (
         <div className="toast" role="status">
