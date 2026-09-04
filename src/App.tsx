@@ -74,7 +74,7 @@ export default function App() {
       <main className="stage">
         <header className="stage-top">
           <h1 className="brand">$MEH</h1>
-          <p className="tagline">A meme. Nothing more. Nothing less.</p>
+         
           <div className="cta-row">
             <a className="btn btn-buy" href={LINKS.buy}>
               Buy $MEH
@@ -116,7 +116,6 @@ export default function App() {
           <span className="sr-only" id={liveId} aria-live="polite">
             {copied ? 'Contract address copied' : ''}
           </span>
-          <p className="closer-line">still here? meh.</p>
         </section>
       </main>
 
@@ -130,8 +129,12 @@ export default function App() {
         <a href={LINKS.robinhood} aria-label="Robinhood">
           <img src={robinhoodLogo} alt="" className="dock-logo" />
         </a>
-       
       </nav>
+      <p className="line line-lead">
+            $MEH is a meme. Nothing more. Nothing less.
+          </p>
+
+      <p className="tagline">A meme. Nothing more. Nothing less.</p>
 
       {copied ? (
         <div className="toast" role="status">

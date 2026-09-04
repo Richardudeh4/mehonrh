@@ -211,17 +211,24 @@
 }
 
 .closer-line {
-  margin: 0.45rem 0 0;
+  position: fixed;
+  left: 50%;
+  bottom: max(4px, calc(env(safe-area-inset-bottom) - 2px));
+  z-index: 60;
+  margin: 0;
+  transform: translateX(-50%);
   color: var(--muted);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: lowercase;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .dock {
   position: fixed;
   left: 50%;
-  bottom: max(10px, env(safe-area-inset-bottom));
+  bottom: max(28px, calc(env(safe-area-inset-bottom) + 18px));
   z-index: 60;
   display: flex;
   gap: 4px;
