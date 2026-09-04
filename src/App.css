@@ -253,9 +253,12 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
-.dock svg {
+.dock svg,
+.dock-logo {
   width: 18px;
   height: 18px;
+  object-fit: contain;
+  border-radius: 3px;
 }
 
 .dock a.dock-meh {

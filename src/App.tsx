@@ -1,14 +1,15 @@
 import { useEffect, useId, useState } from 'react'
 import demoVideo from './assets/demo.mp4'
+import dexscreenerLogo from './assets/dexscreener.png'
+import robinhoodLogo from './assets/robinhood.png'
 import './App.css'
 
 /* Swap these when the real links land. */
 const LINKS = {
   buy: '#',
   x: '#',
-  telegram: '#',
   dexscreener: '#',
-  dextools: '#',
+  robinhood: '#',
 } as const
 
 const CONTRACT_ADDRESS = '0x00000000000000'
@@ -123,14 +124,11 @@ export default function App() {
         <a href={LINKS.x} aria-label="X">
           <IconX />
         </a>
-        <a href={LINKS.telegram} aria-label="Telegram">
-          <IconTelegram />
-        </a>
         <a href={LINKS.dexscreener} aria-label="Dexscreener">
-          <IconChart />
+          <img src={dexscreenerLogo} alt="" className="dock-logo" />
         </a>
-        <a href={LINKS.dextools} aria-label="Dextools">
-          <IconLoop />
+        <a href={LINKS.robinhood} aria-label="Robinhood">
+          <img src={robinhoodLogo} alt="" className="dock-logo" />
         </a>
         <a className="dock-meh" href={LINKS.buy} aria-label="Buy $MEH">
           <IconFlame />
@@ -154,39 +152,6 @@ function IconX() {
       <path
         fill="currentColor"
         d="M14.7 10.3 22 2h-2.2l-6.3 7.1L8.2 2H2l7.7 11.1L2 22h2.2l6.8-7.7L15.8 22H22l-7.3-11.7Zm-2.4 2.7-.8-1.1-6.2-8.7h2.7l5 7 6.2 8.8h-2.7l-5-7Z"
-      />
-    </svg>
-  )
-}
-
-function IconTelegram() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M21.5 4.3 18.2 20c-.2 1-1.3 1.4-2.2.8l-5.3-3.9-2.6 2.5c-.3.3-.8.1-.9-.3l-.7-4.6L3 12.3c-1-.3-.9-1.7.1-2l17.2-6.4c.9-.3 1.7.5 1.2 1.4ZM8.7 13.6l.5 3.3 1.5-1.5 4.8-4.6c.2-.2 0-.5-.2-.4l-6.6 3.2Z"
-      />
-    </svg>
-  )
-}
-
-function IconChart() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M5 4h2v16H5V4Zm6 6h2v10h-2V10Zm6-4h2v14h-2V6Z"
-      />
-    </svg>
-  )
-}
-
-function IconLoop() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M12 5V2L8 6l4 4V7a5 5 0 1 1-4.9 6H5a7 7 0 1 0 7-8Zm0 14v3l4-4-4-4v3a5 5 0 0 1-4.9-6H5a7 7 0 0 0 7 8Z"
       />
     </svg>
   )
