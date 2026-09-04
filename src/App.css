@@ -497,9 +497,7 @@
   .disclaimer-toggle,
   .disclaimer-modal,
   .disclaimer-dialog,
-  .easter-egg,
-  .tweet-modal,
-  .tweet-card {
+  .easter-egg {
     animation: none;
     transition: none;
   }
@@ -538,73 +536,6 @@
 .easter-egg.is-hashing {
   animation: egg-hash 0.7s steps(10, end) forwards;
   pointer-events: none;
-}
-
-.tweet-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 85;
-  display: grid;
-  place-items: center;
-  padding: 1rem;
-  background: rgba(8, 6, 5, 0.78);
-  backdrop-filter: blur(4px);
-  animation: modal-fade 0.18s ease both;
-}
-
-.tweet-card {
-  width: min(100%, 22rem);
-  border: 1px solid var(--border);
-  background: #16110e;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
-  animation: modal-rise 0.2s ease both;
-}
-
-.tweet-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--border);
-}
-
-.tweet-card-label {
-  margin: 0;
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.tweet-card-body {
-  padding: 16px 16px 18px;
-  text-align: left;
-}
-
-.tweet-author {
-  margin: 0;
-  color: var(--text);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.tweet-handle {
-  margin: 2px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.tweet-text {
-  margin: 14px 0 16px;
-  font-family: var(--display);
-  font-size: clamp(2rem, 8vw, 3rem);
-  line-height: 0.95;
-  letter-spacing: 0.02em;
-}
-
-.tweet-link {
-  display: inline-flex;
 }
 
 @keyframes egg-bob {

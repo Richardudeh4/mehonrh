@@ -257,14 +257,10 @@ export default function App() {
 }
 
 function EasterEgg({ reduceMotion }: { reduceMotion: boolean }) {
-  const [pos, setPos] = useState<EggPos | null>(null)
+  const [pos, setPos] = useState<EggPos | null>(() =>
+    typeof window === 'undefined' ? null : pickSafeEggPosition(),
+  )
   const [phase, setPhase] = useState<'idle' | 'hashing' | 'done'>('idle')
-  const [tweetOpen, setTweetOpen] = useState(false)
-  const tweetTitleId = useId()
-
-  useEffect(() => {
-    setPos(pickSafeEggPosition())
-  }, [])
 
   useEffect(() => {
     if (phase !== 'idle') return
@@ -273,90 +269,42 @@ function EasterEgg({ reduceMotion }: { reduceMotion: boolean }) {
     return () => window.removeEventListener('resize', onResize)
   }, [phase])
 
-  useEffect(() => {
-    if (!tweetOpen) return
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setTweetOpen(false)
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [tweetOpen])
-
   function handleCrack() {
     if (phase !== 'idle') return
     setPhase('hashing')
+    const tab = window.open('about:blank', '_blank')
     window.setTimeout(
       () => {
         setPhase('done')
-        setTweetOpen(true)
+        if (tab) {
+          tab.opener = null
+          tab.location.href = MEH_TWEET_URL
+        } else {
+          window.open(MEH_TWEET_URL, '_blank', 'noopener,noreferrer')
+        }
       },
       reduceMotion ? HASH_MS_REDUCED : HASH_MS,
     )
   }
 
-  return (
-    <>
-      {pos && phase !== 'done' ? (
-        <button
-          type="button"
-          className={`easter-egg${phase === 'hashing' ? ' is-hashing' : ''}${reduceMotion ? ' is-static' : ''}`}
-          style={{
-            left: pos.x,
-            top: pos.y,
-            width: EGG_SIZE,
-            height: EGG_SIZE,
-          }}
-          aria-label="easter egg"
-          disabled={phase !== 'idle'}
-          onClick={handleCrack}
-        >
-          <img src={easterEgg} alt="" draggable={false} />
-        </button>
-      ) : null}
+  if (!pos || phase === 'done') return null
 
-      {tweetOpen ? (
-        <div
-          className="tweet-modal"
-          role="presentation"
-          onClick={() => setTweetOpen(false)}
-        >
-          <div
-            className="tweet-card"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={tweetTitleId}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="tweet-card-head">
-              <p className="tweet-card-label" id={tweetTitleId}>
-                found something
-              </p>
-              <button
-                className="disclaimer-close"
-                type="button"
-                aria-label="Close"
-                onClick={() => setTweetOpen(false)}
-              >
-                ×
-              </button>
-            </div>
-            <div className="tweet-card-body">
-              <p className="tweet-author">Elon Musk</p>
-              <p className="tweet-handle">@elonmusk</p>
-              <p className="tweet-text">Meh</p>
-              <a
-                className="btn btn-ghost tweet-link"
-                href={MEH_TWEET_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View on X
-              </a>
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </>
+  return (
+    <button
+      type="button"
+      className={`easter-egg${phase === 'hashing' ? ' is-hashing' : ''}${reduceMotion ? ' is-static' : ''}`}
+      style={{
+        left: pos.x,
+        top: pos.y,
+        width: EGG_SIZE,
+        height: EGG_SIZE,
+      }}
+      aria-label="easter egg"
+      disabled={phase !== 'idle'}
+      onClick={handleCrack}
+    >
+      <img src={easterEgg} alt="" draggable={false} />
+    </button>
   )
 }
 
