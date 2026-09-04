@@ -1,5 +1,4 @@
 import { useEffect, useId, useState } from 'react'
-import demoStill from './assets/demoImage.JPG'
 import demoVideo from './assets/demo.mp4'
 import './App.css'
 
@@ -66,16 +65,9 @@ export default function App() {
       <section className="hero" aria-label="$MEH">
         <div className="hero-media" aria-hidden="true">
           {reduceMotion ? (
-            <img src={demoStill} alt="" />
+            <div className="hero-fallback" />
           ) : (
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={demoStill}
-              preload="metadata"
-            >
+            <video autoPlay muted loop playsInline preload="metadata">
               <source src={demoVideo} type="video/mp4" />
             </video>
           )}
@@ -98,9 +90,7 @@ export default function App() {
       </section>
 
       <section className="manifesto" id="manifesto">
-        <div className="manifesto-bg" aria-hidden="true">
-          <img src={demoStill} alt="" />
-        </div>
+        <div className="manifesto-bg" aria-hidden="true" />
         <div className="manifesto-inner">
           <p className="agree">By buying $MEH, you agree that:</p>
 
