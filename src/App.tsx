@@ -1,6 +1,7 @@
 import { useEffect, useId, useState } from 'react'
 import demoVideo from './assets/demo.mp4'
 import dexscreenerLogo from './assets/dexscreener.png'
+import easterEgg from './assets/easteregg.svg'
 import robinhoodLogo from './assets/robinhood.png'
 import './App.css'
 
@@ -12,7 +13,39 @@ const LINKS = {
   robinhood: '#',
 } as const
 
+const MEH_TWEET_URL =
+  'https://x.com/elonmusk/status/2034947266822471988?s=20'
+
 const CONTRACT_ADDRESS = '0x00000000000000'
+const EGG_SIZE = 48
+const HASH_MS = 700
+const HASH_MS_REDUCED = 80
+
+type EggPos = { x: number; y: number }
+
+function pickSafeEggPosition(): EggPos {
+  const margin = 16
+  const topSafe = 72
+  const bottomSafe = 280
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+  const maxX = Math.max(margin, vw - EGG_SIZE - margin)
+  const minY = topSafe
+  const maxY = Math.max(minY, vh - bottomSafe - EGG_SIZE)
+
+  for (let i = 0; i < 48; i++) {
+    const x = margin + Math.random() * Math.max(1, maxX - margin)
+    const y = minY + Math.random() * Math.max(1, maxY - minY)
+    if (y + EGG_SIZE <= vh - bottomSafe + 8) {
+      return { x, y }
+    }
+  }
+
+  return {
+    x: Math.min(maxX, Math.max(margin, vw * 0.72)),
+    y: Math.min(maxY, Math.max(minY, vh * 0.28)),
+  }
+}
 
 async function copyText(value: string) {
   try {
@@ -101,15 +134,32 @@ export default function App() {
         </header>
       </main>
 
+      <EasterEgg reduceMotion={reduceMotion} />
+
       <div className="bottom-stack">
         <nav className="dock" aria-label="Social and charts">
-          <a href={LINKS.x} aria-label="X" target="_blank" rel="noopener noreferrer">
+          <a
+            href={LINKS.x}
+            aria-label="X"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <IconX />
           </a>
-          <a href={LINKS.dexscreener} aria-label="Dexscreener" target="_blank" rel="noopener noreferrer">
+          <a
+            href={LINKS.dexscreener}
+            aria-label="Dexscreener"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={dexscreenerLogo} alt="" className="dock-logo" />
           </a>
-          <a href={LINKS.robinhood} aria-label="Robinhood" target="_blank" rel="noopener noreferrer">
+          <a
+            href={LINKS.robinhood}
+            aria-label="Robinhood"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={robinhoodLogo} alt="" className="dock-logo" />
           </a>
         </nav>
@@ -157,7 +207,10 @@ export default function App() {
             onClick={(event) => event.stopPropagation()}
           >
             <div className="disclaimer-dialog-head">
-              <h2 className="disclaimer-dialog-title" id={`${disclaimerId}-title`}>
+              <h2
+                className="disclaimer-dialog-title"
+                id={`${disclaimerId}-title`}
+              >
                 Disclaimer
               </h2>
               <button
@@ -200,6 +253,110 @@ export default function App() {
 
       <div className="grain" aria-hidden="true" />
     </div>
+  )
+}
+
+function EasterEgg({ reduceMotion }: { reduceMotion: boolean }) {
+  const [pos, setPos] = useState<EggPos | null>(null)
+  const [phase, setPhase] = useState<'idle' | 'hashing' | 'done'>('idle')
+  const [tweetOpen, setTweetOpen] = useState(false)
+  const tweetTitleId = useId()
+
+  useEffect(() => {
+    setPos(pickSafeEggPosition())
+  }, [])
+
+  useEffect(() => {
+    if (phase !== 'idle') return
+    const onResize = () => setPos(pickSafeEggPosition())
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [phase])
+
+  useEffect(() => {
+    if (!tweetOpen) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setTweetOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [tweetOpen])
+
+  function handleCrack() {
+    if (phase !== 'idle') return
+    setPhase('hashing')
+    window.setTimeout(
+      () => {
+        setPhase('done')
+        setTweetOpen(true)
+      },
+      reduceMotion ? HASH_MS_REDUCED : HASH_MS,
+    )
+  }
+
+  return (
+    <>
+      {pos && phase !== 'done' ? (
+        <button
+          type="button"
+          className={`easter-egg${phase === 'hashing' ? ' is-hashing' : ''}${reduceMotion ? ' is-static' : ''}`}
+          style={{
+            left: pos.x,
+            top: pos.y,
+            width: EGG_SIZE,
+            height: EGG_SIZE,
+          }}
+          aria-label="easter egg"
+          disabled={phase !== 'idle'}
+          onClick={handleCrack}
+        >
+          <img src={easterEgg} alt="" draggable={false} />
+        </button>
+      ) : null}
+
+      {tweetOpen ? (
+        <div
+          className="tweet-modal"
+          role="presentation"
+          onClick={() => setTweetOpen(false)}
+        >
+          <div
+            className="tweet-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={tweetTitleId}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="tweet-card-head">
+              <p className="tweet-card-label" id={tweetTitleId}>
+                found something
+              </p>
+              <button
+                className="disclaimer-close"
+                type="button"
+                aria-label="Close"
+                onClick={() => setTweetOpen(false)}
+              >
+                ×
+              </button>
+            </div>
+            <div className="tweet-card-body">
+              <p className="tweet-author">Elon Musk</p>
+              <p className="tweet-handle">@elonmusk</p>
+              <p className="tweet-text">Meh</p>
+              <a
+                className="btn btn-ghost tweet-link"
+                href={MEH_TWEET_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View on X
+              </a>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
   )
 }
 
