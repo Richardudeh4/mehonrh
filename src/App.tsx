@@ -74,7 +74,6 @@ export default function App() {
       <main className="stage">
         <header className="stage-top">
           <h1 className="brand">$MEH</h1>
-         
           <div className="cta-row">
             <a className="btn btn-buy" href={LINKS.buy}>
               Buy $MEH
@@ -84,6 +83,20 @@ export default function App() {
             </button>
           </div>
         </header>
+      </main>
+
+      <div className="bottom-stack">
+        <nav className="dock" aria-label="Social and charts">
+          <a href={LINKS.x} aria-label="X">
+            <IconX />
+          </a>
+          <a href={LINKS.dexscreener} aria-label="Dexscreener">
+            <img src={dexscreenerLogo} alt="" className="dock-logo" />
+          </a>
+          <a href={LINKS.robinhood} aria-label="Robinhood">
+            <img src={robinhoodLogo} alt="" className="dock-logo" />
+          </a>
+        </nav>
 
         <section className="manifesto" aria-label="Agreement">
           <p className="agree">By buying $MEH, you agree that:</p>
@@ -117,20 +130,9 @@ export default function App() {
             {copied ? 'Contract address copied' : ''}
           </span>
         </section>
-      </main>
 
-      <nav className="dock" aria-label="Social and charts">
-        <a href={LINKS.x} aria-label="X">
-          <IconX />
-        </a>
-        <a href={LINKS.dexscreener} aria-label="Dexscreener">
-          <img src={dexscreenerLogo} alt="" className="dock-logo" />
-        </a>
-        <a href={LINKS.robinhood} aria-label="Robinhood">
-          <img src={robinhoodLogo} alt="" className="dock-logo" />
-        </a>
-      </nav>
-      <p className="tagline">a meme. nothing more. nothing less.</p>
+        <p className="tagline">A meme. Nothing more. Nothing less.</p>
+      </div>
 
       {copied ? (
         <div className="toast" role="status">
@@ -153,5 +155,3 @@ function IconX() {
     </svg>
   )
 }
-
-
