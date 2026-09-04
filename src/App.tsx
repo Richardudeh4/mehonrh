@@ -58,24 +58,20 @@ export default function App() {
 
   return (
     <div className="page">
-      <a className="skip" href="#manifesto">
-        Skip to the agreement
-      </a>
+      <div className="stage-media" aria-hidden="true">
+        {reduceMotion ? (
+          <div className="hero-fallback" />
+        ) : (
+          <video autoPlay muted loop playsInline preload="metadata">
+            <source src={demoVideo} type="video/mp4" />
+          </video>
+        )}
+      </div>
+      <div className="stage-scrim" aria-hidden="true" />
+      <div className="stage-scan" aria-hidden="true" />
 
-      <section className="hero" aria-label="$MEH">
-        <div className="hero-media" aria-hidden="true">
-          {reduceMotion ? (
-            <div className="hero-fallback" />
-          ) : (
-            <video autoPlay muted loop playsInline preload="metadata">
-              <source src={demoVideo} type="video/mp4" />
-            </video>
-          )}
-        </div>
-        <div className="hero-scrim" aria-hidden="true" />
-        <div className="hero-scan" aria-hidden="true" />
-
-        <div className="hero-copy">
+      <main className="stage">
+        <header className="stage-top">
           <h1 className="brand">$MEH</h1>
           <p className="tagline">A meme. Nothing more. Nothing less.</p>
           <div className="cta-row">
@@ -86,35 +82,26 @@ export default function App() {
               {copied ? 'Copied' : 'Copy CA'}
             </button>
           </div>
-        </div>
-      </section>
+        </header>
 
-      <section className="manifesto" id="manifesto">
-        <div className="manifesto-bg" aria-hidden="true" />
-        <div className="manifesto-inner">
+        <section className="manifesto" aria-label="Agreement">
           <p className="agree">By buying $MEH, you agree that:</p>
-
           <p className="line line-lead">
             $MEH is a meme. Nothing more. Nothing less.
           </p>
-
           <p className="line">
             No utility. No guaranteed value. No financial advice.
           </p>
-
           <p className="line">
-            Buy it because you get the joke. Not because you expect anything
-            from it.
+            Buy it because you get the joke. Not because you expect anything from
+            it.
           </p>
-
           <p className="line line-split">
             You might win. You might lose.
             <br />
             We honestly don’t care.
           </p>
-
           <p className="line line-end">This is $MEH.</p>
-
           <button
             className="ca"
             type="button"
@@ -128,16 +115,9 @@ export default function App() {
           <span className="sr-only" id={liveId} aria-live="polite">
             {copied ? 'Contract address copied' : ''}
           </span>
-        </div>
-      </section>
-
-      <footer className="closer">
-        <p>still here? meh.</p>
-        <button className="ca ca-mini" type="button" onClick={handleCopy}>
-          <span className="ca-full">{CONTRACT_ADDRESS}</span>
-          <span className="ca-short">{shortAddress(CONTRACT_ADDRESS)}</span>
-        </button>
-      </footer>
+          <p className="closer-line">still here? meh.</p>
+        </section>
+      </main>
 
       <nav className="dock" aria-label="Social and charts">
         <a href={LINKS.x} aria-label="X">
